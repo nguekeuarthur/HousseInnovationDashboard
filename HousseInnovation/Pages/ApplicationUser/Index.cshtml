@@ -1,0 +1,147 @@
+﻿@page
+@model HousseInnovation.Pages.ApplicationUser.IndexModel
+
+@{
+	Layout = null;
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+	<!-- Basic Page Needs
+	================================================== -->
+	<title>Fluxify</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+	================================================== -->
+	<link rel="stylesheet" href="~/css/style.css">
+	<link rel="stylesheet" href="~/css/colors/blue.css">
+	<link href="~/images/F3.png" rel="shortcut icon" type="image/x-icon">
+	<link href="~/images/F3.png" rel="apple-touch-icon">
+
+
+</head>
+<body class="gray">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<header id="header-container" class="fullwidth">
+
+			<!-- Header -->
+			<div id="header">
+				<div class="container">
+					<div class="left-side">
+						<div id="logo">
+							<a href="index.html"><img src="~/images/F2.png" style="max-width: 200px; width: 200px; height: auto;" alt=""></a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- Header / End -->
+
+		</header>
+
+
+<div id="titlebar" class="gradient">
+
+	<div class="container">
+				<!-- Logo -->
+
+		<div class="row">
+			<div class="col-md-12">
+
+				<h2>Connexion</h2>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li><a href="#">Accueil</a></li>
+						<li>Connexion</li>
+					</ul>
+				</nav>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Page Content
+================================================== -->
+<div class="container">
+	<div class="row">
+		<div class="col-xl-5 offset-xl-3">
+
+
+			<div class="login-register-page">
+				<!-- Welcome Text -->
+				<div class="welcome-text">
+					<h3>Ravie de vous revoir !</h3>
+				</div>
+
+				<!-- Form -->
+				<form method="post">
+					<div class="input-with-icon-left">
+						<i class="icon-material-baseline-mail-outline"></i>
+								<input asp-for="@Model.Input.codeuser" class="input-text with-border" placeholder="Email Address" required />
+					</div>
+
+					<div class="input-with-icon-left">
+						<i class="icon-material-outline-lock"></i>
+							<input asp-for="@Model.Input.password" class="input-text with-border"  placeholder="Password" required />
+					</div>
+									<!-- Button -->
+							<input type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10" >Log In <i class="icon-material-outline-arrow-right-alt"></i></input>
+
+				<!-- Social Login -->
+							@if (ViewData["isMessage"] != null && (bool)ViewData["isMessage"])
+							{
+								<div class="error-message text-center">
+									<div>Identifiant ou mot de passe incorrect. Veuillez réessayer.</div>
+								</div>
+							}
+				</form>
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/jquery-migrate-3.1.0.min.html"></script>
+		<script src="js/mmenu.min.js"></script>
+		<script src="js/tippy.all.min.js"></script>
+		<script src="js/simplebar.min.js"></script>
+		<script src="js/bootstrap-slider.min.js"></script>
+		<script src="js/bootstrap-select.min.js"></script>
+		<script src="js/snackbar.js"></script>
+		<script src="js/clipboard.min.js"></script>
+		<script src="js/counterup.min.js"></script>
+		<script src="js/magnific-popup.min.js"></script>
+		<script src="js/slick.min.js"></script>
+		<script src="js/custom.js"></script>
+
+		<!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
+		<script>
+			// Snackbar for user status switcher
+			$('#snackbar-user-status label').click(function () {
+				Snackbar.show({
+					text: 'Your status has been changed!',
+					pos: 'bottom-center',
+					showAction: false,
+					actionText: "Dismiss",
+					duration: 3000,
+					textColor: '#fff',
+					backgroundColor: '#383838'
+				});
+			});
+		</script>
+</body>
+</html>

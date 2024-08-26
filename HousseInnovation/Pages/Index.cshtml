@@ -1,0 +1,177 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="dashboard-content-container" data-simplebar>
+    <div class="dashboard-content-inner">
+
+        <!-- Dashboard Headline -->
+        <div class="dashboard-headline">
+            <h3>Bienvenue!</h3>
+            <span>Heureux de vous revoir!</span>
+        </div>
+
+        <!-- Fun Facts Container -->
+        <div class="fun-facts-container">
+            <div class="fun-fact" data-fun-fact-color="#36bd78">
+                <div class="fun-fact-text">
+                    <span>Clients</span>
+                    <h4>@Model.NombreClient</h4>
+                </div>
+                <div class="fun-fact-icon"><i class="icon-material-outline-person-pin"></i></div>
+            </div>
+            <div class="fun-fact" data-fun-fact-color="#b81b7f">
+                <div class="fun-fact-text">
+                    <span>Administrateur</span>
+                    <h4>4</h4>
+                </div>
+                <div class="fun-fact-icon"><i class="icon-material-outline-business-center"></i></div>
+            </div>
+            <div class="fun-fact" data-fun-fact-color="#efa80f">
+                <div class="fun-fact-text">
+                    <span>Applications Actives</span>
+                    <h4>@Model.NombreApplication</h4>
+                </div>
+                <div class="fun-fact-icon"><i class="icon-brand-medapps"></i></div>
+            </div>
+        </div>
+
+        <!-- Row -->
+        <div class="row">
+
+            <div class="col-xl-8">
+                <!-- Dashboard Box -->
+                <div class="dashboard-box main-box-in-row">
+                    <div class="headline">
+                        <h3><i class="icon-feather-bar-chart-2"></i> Your Profile Views</h3>
+                        <div class="sort-by">
+                            <select class="selectpicker hide-tick">
+                                <option>Last 6 Months</option>
+                                <option>This Year</option>
+                                <option>This Month</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <!-- Chart -->
+                        <div class="chart">
+                            <canvas id="chart" width="100" height="45"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Dashboard Box / End -->
+            </div>
+            <div class="col-xl-4">
+
+                <!-- Dashboard Box -->
+                <div class="dashboard-box child-box-in-row">
+                    <div class="headline">
+                        <h3><i class="icon-material-outline-note-add"></i> </h3>
+                    </div>
+                    <div class="content with-padding">
+                    </div>
+
+                    <div class="add-note-button">
+                        <a href="#small-dialog" class="popup-with-zoom-anim button full-width button-sliding-icon">Ajouter Une application <i class="icon-material-outline-arrow-right-alt"></i></a>
+                    </div>
+                </div>
+                <!-- Dashboard Box / End -->
+            </div>
+        </div>
+        <!-- Row / End -->
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Dashboard Box -->
+            <div class="col-xl-6">
+                <div class="dashboard-box">
+                    <div class="headline">
+                        <h3><i class="icon-material-outline-assignment"></i> Clients</h3>
+                    </div>
+                    <div class="content">
+                        <ul class="dashboard-box-list">
+                            @foreach (var client in Model.ClientList)
+                            {
+                                <li>
+                                    <div class="invoice-list-item">
+                                        <strong>@client.ClientName</strong>
+                                        <ul>
+                                            @foreach (var app in client.Applications)
+                                            {
+                                                <li>
+                                                    @app
+                                                    <div class="buttons-to-right">
+                                                        <form method="post" asp-page-handler="OpenDashboard" style="display:none;" id="dashboardForm-@client.ClientName-@app">
+                                                            <input type="hidden" name="clientName" value="@client.ClientName" />
+                                                            <input type="hidden" name="appName" value="@app" />
+                                                        </form>
+                                                        <button class="button" onclick="document.getElementById('dashboardForm-@client.ClientName-@app').submit();">
+                                                            Dashboard (@app)
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Row / End -->
+        <!-- Footer -->
+        <div class="dashboard-footer-spacer"></div>
+        <div class="small-footer margin-top-15">
+            <div class="small-footer-copyrights">
+                © 2024 <strong>Arthur Nguekeu</strong>. All Rights Reserved.
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- Footer / End -->
+
+    </div>
+</div>
+<!-- Dashboard Content / End -->
+<!-- Apply for a job popup
+================================================== -->
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+    <!--Tabs -->
+    <div class="sign-in-form">
+
+        <ul class="popup-tabs-nav">
+            <li><a href="#tab">Add Note</a></li>
+        </ul>
+
+        <div class="popup-tabs-container">
+
+            <!-- Tab -->
+            <div class="popup-tab-content" id="tab">
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h3>Entrez les informations de la nouvelle application 😎</h3>
+                </div>
+
+                <!-- Form -->
+                <form method="post" id="add-note">
+                    <input type="text" asp-for="client.ClientName" placeholder="Entrez le Nom du Client" class="with-border" required>
+                    <input type="text" asp-for="client.AppName" placeholder="Entrez le Nom de l'Application" class="with-border" required>
+
+                    <label for="jsonFile">Fichier JSON:</label>
+                    <input type="file" id="jsonFile" name="JsonFile" accept=".json" class="with-border" required>
+                </form>
+
+                <!-- Button -->
+                <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="add-note">Aller Au Dashboard<i class="icon-material-outline-arrow-right-alt"></i></button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Apply for a job popup / End -->
